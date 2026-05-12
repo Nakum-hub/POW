@@ -1,0 +1,119 @@
+- generic [ref=e2]:
+  - generic [ref=e3]: Supabase is unreachable, so SkillOS is running with built-in preview data.
+  - generic [ref=e4]:
+    - complementary [ref=e5]:
+      - generic [ref=e7]:
+        - img [ref=e9]
+        - generic [ref=e11]: SkillOS
+      - generic [ref=e12]:
+        - generic [ref=e13]: Main
+        - navigation [ref=e14]:
+          - link "Dashboard" [ref=e15] [cursor=pointer]:
+            - /url: /dashboard
+            - img [ref=e16]
+            - generic [ref=e21]: Dashboard
+          - link "Skill Graph" [ref=e22] [cursor=pointer]:
+            - /url: /skills
+            - img [ref=e23]
+            - generic [ref=e33]: Skill Graph
+          - link "Repositories" [ref=e34] [cursor=pointer]:
+            - /url: /repos
+            - img [ref=e35]
+            - generic [ref=e39]: Repositories
+          - link "Recruiter Search" [ref=e40] [cursor=pointer]:
+            - /url: /search
+            - img [ref=e41]
+            - generic [ref=e44]: Recruiter Search
+          - link "Project Explainer" [ref=e45] [cursor=pointer]:
+            - /url: /explainer
+            - img [ref=e46]
+            - generic [ref=e49]: Project Explainer
+        - generic [ref=e50]: Account
+        - link "Settings" [ref=e51] [cursor=pointer]:
+          - /url: /settings
+          - img [ref=e52]
+          - generic [ref=e55]: Settings
+      - generic [ref=e57]:
+        - img "Aarav Rao" [ref=e58]
+        - generic [ref=e59]:
+          - generic [ref=e60]: Aarav Rao
+          - generic [ref=e61]: "@aaravrao"
+    - main [ref=e62]:
+      - generic [ref=e63]:
+        - generic [ref=e64]:
+          - heading "Settings" [level=1] [ref=e65]
+          - paragraph [ref=e66]: Manage your public profile, repository analysis, and account lifecycle.
+        - generic [ref=e67]:
+          - generic [ref=e68]:
+            - generic [ref=e69]:
+              - heading "Profile" [level=2] [ref=e70]
+              - button "Re-analyze Repositories" [ref=e71] [cursor=pointer]:
+                - img [ref=e72]
+                - text: Re-analyze Repositories
+            - generic [ref=e77]:
+              - img "Aarav Rao" [ref=e78]
+              - generic [ref=e79]:
+                - generic [ref=e80]: Aarav Rao
+                - generic [ref=e81]: "@aaravrao"
+                - generic [ref=e82]:
+                  - generic [ref=e83]:
+                    - img [ref=e84]
+                    - text: Preview mode
+                  - generic [ref=e87]:
+                    - img [ref=e88]
+                    - text: 4 repositories
+                  - generic [ref=e91]: 9 verified skills
+            - generic [ref=e92]:
+              - generic [ref=e93]:
+                - generic [ref=e94]: GitHub connection
+                - paragraph [ref=e95]: Running with preview data because the configured Supabase backend is unavailable.
+              - generic [ref=e96]:
+                - generic [ref=e97]: Last analyzed
+                - paragraph [ref=e98]: 4/22/2026, 8:37:06 PM
+          - generic [ref=e99]:
+            - heading "Profile Visibility" [level=2] [ref=e100]
+            - generic [ref=e101]:
+              - generic [ref=e102]:
+                - generic [ref=e103]:
+                  - generic [ref=e104]: Appear in recruiter search
+                  - paragraph [ref=e105]: Allow recruiters to discover your profile.
+                - button [pressed] [ref=e106] [cursor=pointer]
+              - generic [ref=e108]:
+                - generic [ref=e109]:
+                  - generic [ref=e110]: Show confidence scores publicly
+                  - paragraph [ref=e111]: Recruiters will see your skill confidence percentages.
+                - button [pressed] [ref=e112] [cursor=pointer]
+            - button "Save Settings" [ref=e114] [cursor=pointer]
+          - generic [ref=e115]:
+            - heading "Public Profile" [level=2] [ref=e116]
+            - generic [ref=e117]:
+              - generic [ref=e118]: Your public profile URL
+              - generic [ref=e119]: http://127.0.0.1:4173/dev/aaravrao
+              - generic [ref=e120]:
+                - button "Copy URL" [ref=e121] [cursor=pointer]:
+                  - img [ref=e122]
+                  - text: Copy URL
+                - link "Preview Profile" [ref=e125] [cursor=pointer]:
+                  - /url: http://127.0.0.1:4173/dev/aaravrao
+                  - img [ref=e126]
+                  - text: Preview Profile
+          - generic [ref=e130]:
+            - heading "Data Management" [level=2] [ref=e131]
+            - generic [ref=e132]:
+              - generic [ref=e133]:
+                - generic [ref=e134]:
+                  - img [ref=e135]
+                  - generic [ref=e138]: Delete Analysis Data
+                - paragraph [ref=e139]: Removes repositories, inferred skills, evidence, and repository analysis while keeping your account.
+                - button "Delete Analysis Data" [ref=e140] [cursor=pointer]
+              - generic [ref=e141]:
+                - generic [ref=e142]:
+                  - img [ref=e143]
+                  - generic [ref=e145]: Delete Account
+                - paragraph [ref=e146]: Permanently deletes your profile, analysis data, and authentication account.
+                - button "Delete Account" [ref=e147] [cursor=pointer]
+          - generic [ref=e148]:
+            - heading "Session" [level=2] [ref=e149]
+            - button "Sign Out" [ref=e150] [cursor=pointer]:
+              - img [ref=e151]
+              - text: Sign Out

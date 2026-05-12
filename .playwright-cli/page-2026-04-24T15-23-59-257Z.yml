@@ -1,0 +1,182 @@
+- generic [ref=e2]:
+  - generic [ref=e7]: Supabase is unreachable, so SkillOS is running with built-in preview data.
+  - generic [ref=e171]:
+    - complementary [ref=e172]:
+      - generic [ref=e174]:
+        - img [ref=e176]
+        - generic [ref=e178]: SkillOS
+      - generic [ref=e179]:
+        - generic [ref=e180]: Main
+        - navigation [ref=e181]:
+          - link "Dashboard" [ref=e182] [cursor=pointer]:
+            - /url: /dashboard
+            - img [ref=e183]
+            - generic [ref=e188]: Dashboard
+          - link "Skill Graph" [ref=e189] [cursor=pointer]:
+            - /url: /skills
+            - img [ref=e190]
+            - generic [ref=e200]: Skill Graph
+          - link "Repositories" [ref=e201] [cursor=pointer]:
+            - /url: /repos
+            - img [ref=e202]
+            - generic [ref=e206]: Repositories
+          - link "Recruiter Search" [ref=e207] [cursor=pointer]:
+            - /url: /search
+            - img [ref=e208]
+            - generic [ref=e211]: Recruiter Search
+          - link "Project Explainer" [ref=e212] [cursor=pointer]:
+            - /url: /explainer
+            - img [ref=e213]
+            - generic [ref=e216]: Project Explainer
+        - generic [ref=e217]: Account
+        - link "Settings" [ref=e218] [cursor=pointer]:
+          - /url: /settings
+          - img [ref=e219]
+          - generic [ref=e222]: Settings
+      - generic [ref=e224]:
+        - img "Aarav Rao" [ref=e225]
+        - generic [ref=e226]:
+          - generic [ref=e227]: Aarav Rao
+          - generic [ref=e228]: "@aaravrao"
+    - main [ref=e229]:
+      - generic [ref=e230]:
+        - generic [ref=e232]:
+          - generic [ref=e233]:
+            - heading "Welcome back, Aarav" [level=1] [ref=e234]
+            - paragraph [ref=e235]: Your skill profile is based on 4 analyzed repositories.
+          - button "Re-analyze" [ref=e236] [cursor=pointer]:
+            - img [ref=e237]
+            - text: Re-analyze
+        - generic [ref=e240]:
+          - generic [ref=e241]:
+            - generic [ref=e242]: Total Skills
+            - generic [ref=e243]: "9"
+          - generic [ref=e244]:
+            - generic [ref=e245]: High Confidence
+            - generic [ref=e246]: "7"
+          - generic [ref=e247]:
+            - generic [ref=e248]: Total Commits
+            - generic [ref=e249]: "1196"
+          - generic [ref=e250]:
+            - generic [ref=e251]: Avg Quality
+            - generic [ref=e252]: 85%
+        - generic [ref=e253]:
+          - generic [ref=e254]:
+            - heading "Top Skills" [level=2] [ref=e255]
+            - button "View all" [ref=e256] [cursor=pointer]
+          - generic [ref=e257]:
+            - generic [ref=e258] [cursor=pointer]:
+              - generic [ref=e259]:
+                - generic [ref=e260]: language
+                - generic [ref=e261]: 92%
+              - heading "TypeScript" [level=3] [ref=e262]
+            - generic [ref=e265] [cursor=pointer]:
+              - generic [ref=e266]:
+                - generic [ref=e267]: framework
+                - generic [ref=e268]: 89%
+              - heading "React" [level=3] [ref=e269]
+            - generic [ref=e272] [cursor=pointer]:
+              - generic [ref=e273]:
+                - generic [ref=e274]: devops
+                - generic [ref=e275]: 84%
+              - heading "Docker" [level=3] [ref=e276]
+            - generic [ref=e279] [cursor=pointer]:
+              - generic [ref=e280]:
+                - generic [ref=e281]: database
+                - generic [ref=e282]: 81%
+              - heading "PostgreSQL" [level=3] [ref=e283]
+            - generic [ref=e286] [cursor=pointer]:
+              - generic [ref=e287]:
+                - generic [ref=e288]: devops
+                - generic [ref=e289]: 79%
+              - heading "CI/CD" [level=3] [ref=e290]
+            - generic [ref=e293] [cursor=pointer]:
+              - generic [ref=e294]:
+                - generic [ref=e295]: practice
+                - generic [ref=e296]: 76%
+              - heading "Testing Strategy" [level=3] [ref=e297]
+            - generic [ref=e300] [cursor=pointer]:
+              - generic [ref=e301]:
+                - generic [ref=e302]: concept
+                - generic [ref=e303]: 73%
+              - heading "System Design" [level=3] [ref=e304]
+            - generic [ref=e307] [cursor=pointer]:
+              - generic [ref=e308]:
+                - generic [ref=e309]: language
+                - generic [ref=e310]: 68%
+              - heading "Python" [level=3] [ref=e311]
+        - generic [ref=e314]:
+          - heading "Recent Repositories" [level=2] [ref=e316]
+          - generic [ref=e317]:
+            - generic [ref=e319] [cursor=pointer]:
+              - generic [ref=e320]:
+                - heading "signalboard" [level=3] [ref=e321]
+                - paragraph [ref=e322]: A multi-tenant product analytics dashboard with event ingestion and role-based access.
+                - generic [ref=e323]:
+                  - generic [ref=e324]: TypeScript
+                  - generic [ref=e326]:
+                    - img [ref=e327]
+                    - text: "142"
+                  - generic [ref=e329]:
+                    - img [ref=e330]
+                    - text: "21"
+                  - generic [ref=e335]:
+                    - img [ref=e336]
+                    - text: "468"
+              - generic [ref=e338]:
+                - generic [ref=e339]: Quality
+                - generic [ref=e340]: 91%
+            - generic [ref=e342] [cursor=pointer]:
+              - generic [ref=e343]:
+                - heading "orchid-api" [level=3] [ref=e344]
+                - paragraph [ref=e345]: A Go API for workflow orchestration, queue processing, and resilient background jobs.
+                - generic [ref=e346]:
+                  - generic [ref=e347]: Go
+                  - generic [ref=e349]:
+                    - img [ref=e350]
+                    - text: "88"
+                  - generic [ref=e352]:
+                    - img [ref=e353]
+                    - text: "17"
+                  - generic [ref=e358]:
+                    - img [ref=e359]
+                    - text: "312"
+              - generic [ref=e361]:
+                - generic [ref=e362]: Quality
+                - generic [ref=e363]: 87%
+            - generic [ref=e365] [cursor=pointer]:
+              - generic [ref=e366]:
+                - heading "vector-queue" [level=3] [ref=e367]
+                - paragraph [ref=e368]: A durable queue abstraction for high-throughput event processing and observability.
+                - generic [ref=e369]:
+                  - generic [ref=e370]: TypeScript
+                  - generic [ref=e372]:
+                    - img [ref=e373]
+                    - text: "74"
+                  - generic [ref=e375]:
+                    - img [ref=e376]
+                    - text: "10"
+                  - generic [ref=e381]:
+                    - img [ref=e382]
+                    - text: "187"
+              - generic [ref=e384]:
+                - generic [ref=e385]: Quality
+                - generic [ref=e386]: 79%
+            - generic [ref=e388] [cursor=pointer]:
+              - generic [ref=e389]:
+                - heading "atlas-worker" [level=3] [ref=e390]
+                - paragraph [ref=e391]: Python automation service for document ingestion, OCR, and scoring pipelines.
+                - generic [ref=e392]:
+                  - generic [ref=e393]: Python
+                  - generic [ref=e395]:
+                    - img [ref=e396]
+                    - text: "61"
+                  - generic [ref=e398]:
+                    - img [ref=e399]
+                    - text: "12"
+                  - generic [ref=e404]:
+                    - img [ref=e405]
+                    - text: "229"
+              - generic [ref=e407]:
+                - generic [ref=e408]: Quality
+                - generic [ref=e409]: 83%

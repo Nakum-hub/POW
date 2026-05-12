@@ -1,0 +1,218 @@
+- generic [ref=e3]:
+  - complementary [ref=e4]:
+    - generic [ref=e5]:
+      - link "SkillOS Verified hiring workspace" [ref=e6] [cursor=pointer]:
+        - /url: /dashboard
+        - img [ref=e8]
+        - generic [ref=e11]:
+          - generic [ref=e12]: SkillOS
+          - generic [ref=e13]: Verified hiring workspace
+      - generic [ref=e14]:
+        - generic [ref=e15]: Workspace plan
+        - generic [ref=e16]:
+          - generic [ref=e17]: Growth
+          - generic [ref=e18]: active
+    - generic [ref=e19]:
+      - generic [ref=e20]:
+        - generic [ref=e21]: Workspace
+        - navigation [ref=e22]:
+          - link "Overview" [ref=e23] [cursor=pointer]:
+            - /url: /dashboard
+            - img [ref=e24]
+            - generic [ref=e29]: Overview
+          - link "Recruiter Search" [ref=e30] [cursor=pointer]:
+            - /url: /search
+            - img [ref=e31]
+            - generic [ref=e34]: Recruiter Search
+          - link "Pipeline" [ref=e35] [cursor=pointer]:
+            - /url: /pipeline
+            - img [ref=e36]
+            - generic [ref=e41]: Pipeline
+      - generic [ref=e42]:
+        - generic [ref=e43]: Evidence
+        - navigation [ref=e44]:
+          - link "Skill Graph" [ref=e45] [cursor=pointer]:
+            - /url: /skills
+            - img [ref=e46]
+            - generic [ref=e56]: Skill Graph
+          - link "Repositories" [ref=e57] [cursor=pointer]:
+            - /url: /repos
+            - img [ref=e58]
+            - generic [ref=e62]: Repositories
+          - link "Candidate Briefs" [ref=e63] [cursor=pointer]:
+            - /url: /explainer
+            - img [ref=e64]
+            - generic [ref=e67]: Candidate Briefs
+      - generic [ref=e68]:
+        - generic [ref=e69]: Operations
+        - navigation [ref=e70]:
+          - link "Billing" [ref=e71] [cursor=pointer]:
+            - /url: /billing
+            - img [ref=e72]
+            - generic [ref=e74]: Billing
+      - link "Settings" [ref=e75] [cursor=pointer]:
+        - /url: /settings
+        - img [ref=e76]
+        - generic [ref=e79]: Settings
+    - generic [ref=e81]:
+      - img "Aarav Rao" [ref=e82]
+      - generic [ref=e83]:
+        - generic [ref=e84]: Aarav Rao
+        - generic [ref=e85]: "@aaravrao"
+  - main [ref=e86]:
+    - generic [ref=e87]:
+      - generic [ref=e88]:
+        - generic [ref=e89]:
+          - generic [ref=e90]: Billing
+          - heading "Plans and workspace capacity" [level=1] [ref=e91]
+          - paragraph [ref=e92]: Manage the plan limits that control search depth, recruiter seats, shortlists, exports, and candidate brief volume.
+        - generic [ref=e93]:
+          - generic [ref=e94]: Current plan
+          - generic [ref=e95]:
+            - generic [ref=e96]: Growth
+            - generic [ref=e97]: active
+          - generic [ref=e98]: Plan limits are reflected immediately across search, pipeline, exports, and team workflow controls.
+      - generic [ref=e99]:
+        - generic [ref=e100]:
+          - img [ref=e102]
+          - generic [ref=e106]: Shortlists
+          - generic [ref=e107]: "2"
+        - generic [ref=e108]:
+          - img [ref=e110]
+          - generic [ref=e115]: Saved candidates
+          - generic [ref=e116]: "3"
+        - generic [ref=e117]:
+          - img [ref=e119]
+          - generic [ref=e122]: Seats included
+          - generic [ref=e123]: "3"
+        - generic [ref=e124]:
+          - img [ref=e126]
+          - generic [ref=e128]: Monthly value target
+          - generic [ref=e129]: $12,000
+      - generic [ref=e130]:
+        - generic [ref=e131]:
+          - heading "Plan options" [level=2] [ref=e132]
+          - paragraph [ref=e133]: Start with a focused recruiter workflow, then expand into larger shortlists, exports, analytics, and managed rollout support as usage grows.
+        - generic [ref=e134]:
+          - generic [ref=e135]:
+            - generic [ref=e137]:
+              - generic [ref=e138]: Starter
+              - generic [ref=e139]: Free
+              - generic [ref=e140]: Solo recruiter or founder
+            - paragraph [ref=e141]: For founder-led hiring teams validating proof-of-work search.
+            - generic [ref=e142]:
+              - generic [ref=e143]:
+                - img [ref=e144]
+                - generic [ref=e147]: 25 ranked search results per query
+              - generic [ref=e148]:
+                - img [ref=e149]
+                - generic [ref=e152]: 1 shortlist with 10 saved candidates
+              - generic [ref=e153]:
+                - img [ref=e154]
+                - generic [ref=e157]: Public profile and repository review
+              - generic [ref=e158]:
+                - img [ref=e159]
+                - generic [ref=e162]: Email-only support
+            - button "Switch to Starter" [ref=e164] [cursor=pointer]
+          - generic [ref=e165]:
+            - generic [ref=e166]:
+              - generic [ref=e167]:
+                - generic [ref=e168]: Growth
+                - generic [ref=e169]: $349/mo
+                - generic [ref=e170]: Hiring team or boutique agency
+              - generic [ref=e171]: Recommended
+            - paragraph [ref=e172]: For agency desks and recruiting teams running proof-of-work sourcing every week.
+            - generic [ref=e173]:
+              - generic [ref=e174]:
+                - img [ref=e175]
+                - generic [ref=e178]: 250 ranked search results per query
+              - generic [ref=e179]:
+                - img [ref=e180]
+                - generic [ref=e183]: 10 shortlists with 150 saved candidates
+              - generic [ref=e184]:
+                - img [ref=e185]
+                - generic [ref=e188]: CSV exports and candidate handoff notes
+              - generic [ref=e189]:
+                - img [ref=e190]
+                - generic [ref=e193]: 3 recruiter seats and candidate briefs
+            - generic [ref=e195]: Active plan
+          - generic [ref=e196]:
+            - generic [ref=e198]:
+              - generic [ref=e199]: Scale
+              - generic [ref=e200]: $1,490/mo
+              - generic [ref=e201]: Scaling in-house recruiting team
+            - paragraph [ref=e202]: For internal recruiting orgs and talent platforms replacing resume-first screening.
+            - generic [ref=e203]:
+              - generic [ref=e204]:
+                - img [ref=e205]
+                - generic [ref=e208]: 1,000 ranked search results per query
+              - generic [ref=e209]:
+                - img [ref=e210]
+                - generic [ref=e213]: 40 shortlists with 1,000 saved candidates
+              - generic [ref=e214]:
+                - img [ref=e215]
+                - generic [ref=e218]: Pipeline analytics and monthly exports
+              - generic [ref=e219]:
+                - img [ref=e220]
+                - generic [ref=e223]: 15 seats with rollout support
+            - button "Switch to Scale" [ref=e225] [cursor=pointer]
+          - generic [ref=e226]:
+            - generic [ref=e228]:
+              - generic [ref=e229]: Enterprise
+              - generic [ref=e230]: Custom
+              - generic [ref=e231]: Enterprise TA and platform teams
+            - paragraph [ref=e232]: For enterprise talent acquisition teams standardizing on verified proof-of-work hiring.
+            - generic [ref=e233]:
+              - generic [ref=e234]:
+                - img [ref=e235]
+                - generic [ref=e238]: Unlimited search, lists, and exports
+              - generic [ref=e239]:
+                - img [ref=e240]
+                - generic [ref=e243]: Hiring manager workspaces and enablement
+              - generic [ref=e244]:
+                - img [ref=e245]
+                - generic [ref=e248]: Custom onboarding and SLA-backed support
+              - generic [ref=e249]:
+                - img [ref=e250]
+                - generic [ref=e253]: Commercial and compliance review support
+            - button "Switch to Enterprise" [ref=e255] [cursor=pointer]
+      - generic [ref=e256]:
+        - generic [ref=e257]:
+          - heading "Current entitlements" [level=2] [ref=e258]
+          - generic [ref=e259]:
+            - generic [ref=e260]:
+              - generic [ref=e261]: Search results per query
+              - generic [ref=e262]: "250"
+            - generic [ref=e263]:
+              - generic [ref=e264]: Shortlists
+              - generic [ref=e265]: "10"
+            - generic [ref=e266]:
+              - generic [ref=e267]: Saved candidates
+              - generic [ref=e268]: "150"
+            - generic [ref=e269]:
+              - generic [ref=e270]: Monthly exports
+              - generic [ref=e271]: "10"
+            - generic [ref=e272]:
+              - generic [ref=e273]: Candidate briefs
+              - generic [ref=e274]: "75"
+            - generic [ref=e275]:
+              - generic [ref=e276]: Pipeline analytics
+              - generic [ref=e277]: Included
+            - generic [ref=e278]:
+              - generic [ref=e279]: Onboarding support
+              - generic [ref=e280]: Self-serve
+        - generic [ref=e281]:
+          - heading "Rollout guidance" [level=2] [ref=e282]
+          - generic [ref=e283]:
+            - generic [ref=e284]:
+              - generic [ref=e285]: Best starter motion
+              - paragraph [ref=e286]: Use Starter to prove the evidence-led workflow with a focused shortlist and hiring manager review.
+            - generic [ref=e287]:
+              - generic [ref=e288]: Recommended team tier
+              - paragraph [ref=e289]: Growth adds team seats, exports, and enough shortlist capacity for weekly recruiter usage.
+            - generic [ref=e290]:
+              - generic [ref=e291]: Expansion signals
+              - paragraph [ref=e292]: More saved candidates, more shortlists, and additional recruiter seats indicate healthy account growth.
+            - generic [ref=e293]:
+              - generic [ref=e294]: Enterprise readiness
+              - paragraph [ref=e295]: Scale and Enterprise are designed for analytics, rollout support, compliance review, and larger hiring teams.

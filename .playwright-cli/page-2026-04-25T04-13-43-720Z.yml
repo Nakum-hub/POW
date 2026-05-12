@@ -1,0 +1,196 @@
+- generic [ref=e2]:
+  - generic [ref=e3]: Demo mode is forced, so SkillOS is running with built-in preview data.
+  - generic [ref=e38]:
+    - complementary [ref=e39]:
+      - generic [ref=e40]:
+        - generic [ref=e41]:
+          - img [ref=e43]
+          - generic [ref=e45]: SkillOS
+        - generic [ref=e46]:
+          - generic [ref=e47]: Plan
+          - generic [ref=e48]:
+            - generic [ref=e49]: Growth
+            - generic [ref=e50]: active
+      - generic [ref=e51]:
+        - generic [ref=e52]: Main
+        - navigation [ref=e53]:
+          - link "Dashboard" [ref=e54] [cursor=pointer]:
+            - /url: /dashboard
+            - img [ref=e55]
+            - generic [ref=e60]: Dashboard
+          - link "Skill Graph" [ref=e61] [cursor=pointer]:
+            - /url: /skills
+            - img [ref=e62]
+            - generic [ref=e72]: Skill Graph
+          - link "Repositories" [ref=e73] [cursor=pointer]:
+            - /url: /repos
+            - img [ref=e74]
+            - generic [ref=e78]: Repositories
+          - link "Recruiter Search" [ref=e79] [cursor=pointer]:
+            - /url: /search
+            - img [ref=e80]
+            - generic [ref=e83]: Recruiter Search
+          - link "Pipeline" [ref=e84] [cursor=pointer]:
+            - /url: /pipeline
+            - img [ref=e85]
+            - generic [ref=e90]: Pipeline
+          - link "Billing" [ref=e91] [cursor=pointer]:
+            - /url: /billing
+            - img [ref=e92]
+            - generic [ref=e94]: Billing
+          - link "Project Explainer" [ref=e95] [cursor=pointer]:
+            - /url: /explainer
+            - img [ref=e96]
+            - generic [ref=e99]: Project Explainer
+        - generic [ref=e100]: Account
+        - link "Settings" [ref=e101] [cursor=pointer]:
+          - /url: /settings
+          - img [ref=e102]
+          - generic [ref=e105]: Settings
+      - generic [ref=e107]:
+        - img "Aarav Rao" [ref=e108]
+        - generic [ref=e109]:
+          - generic [ref=e110]: Aarav Rao
+          - generic [ref=e111]: "@aaravrao"
+    - main [ref=e112]:
+      - generic [ref=e113]:
+        - generic [ref=e115]:
+          - generic [ref=e116]:
+            - heading "Welcome back, Aarav" [level=1] [ref=e117]
+            - paragraph [ref=e118]: Your skill profile is based on 4 analyzed repositories.
+          - button "Re-analyze" [ref=e119] [cursor=pointer]:
+            - img [ref=e120]
+            - text: Re-analyze
+        - generic [ref=e123]:
+          - generic [ref=e124]:
+            - generic [ref=e125]: Total Skills
+            - generic [ref=e126]: "9"
+          - generic [ref=e127]:
+            - generic [ref=e128]: High Confidence
+            - generic [ref=e129]: "7"
+          - generic [ref=e130]:
+            - generic [ref=e131]: Total Commits
+            - generic [ref=e132]: "1196"
+          - generic [ref=e133]:
+            - generic [ref=e134]: Avg Quality
+            - generic [ref=e135]: 85%
+        - generic [ref=e136]:
+          - generic [ref=e137]:
+            - heading "Top Skills" [level=2] [ref=e138]
+            - button "View all" [ref=e139] [cursor=pointer]
+          - generic [ref=e140]:
+            - generic [ref=e141] [cursor=pointer]:
+              - generic [ref=e142]:
+                - generic [ref=e143]: language
+                - generic [ref=e144]: 92%
+              - heading "TypeScript" [level=3] [ref=e145]
+            - generic [ref=e148] [cursor=pointer]:
+              - generic [ref=e149]:
+                - generic [ref=e150]: framework
+                - generic [ref=e151]: 89%
+              - heading "React" [level=3] [ref=e152]
+            - generic [ref=e155] [cursor=pointer]:
+              - generic [ref=e156]:
+                - generic [ref=e157]: devops
+                - generic [ref=e158]: 84%
+              - heading "Docker" [level=3] [ref=e159]
+            - generic [ref=e162] [cursor=pointer]:
+              - generic [ref=e163]:
+                - generic [ref=e164]: database
+                - generic [ref=e165]: 81%
+              - heading "PostgreSQL" [level=3] [ref=e166]
+            - generic [ref=e169] [cursor=pointer]:
+              - generic [ref=e170]:
+                - generic [ref=e171]: devops
+                - generic [ref=e172]: 79%
+              - heading "CI/CD" [level=3] [ref=e173]
+            - generic [ref=e176] [cursor=pointer]:
+              - generic [ref=e177]:
+                - generic [ref=e178]: practice
+                - generic [ref=e179]: 76%
+              - heading "Testing Strategy" [level=3] [ref=e180]
+            - generic [ref=e183] [cursor=pointer]:
+              - generic [ref=e184]:
+                - generic [ref=e185]: concept
+                - generic [ref=e186]: 73%
+              - heading "System Design" [level=3] [ref=e187]
+            - generic [ref=e190] [cursor=pointer]:
+              - generic [ref=e191]:
+                - generic [ref=e192]: language
+                - generic [ref=e193]: 68%
+              - heading "Python" [level=3] [ref=e194]
+        - generic [ref=e197]:
+          - heading "Recent Repositories" [level=2] [ref=e199]
+          - generic [ref=e200]:
+            - generic [ref=e202] [cursor=pointer]:
+              - generic [ref=e203]:
+                - heading "signalboard" [level=3] [ref=e204]
+                - paragraph [ref=e205]: A multi-tenant product analytics dashboard with event ingestion and role-based access.
+                - generic [ref=e206]:
+                  - generic [ref=e207]: TypeScript
+                  - generic [ref=e209]:
+                    - img [ref=e210]
+                    - text: "142"
+                  - generic [ref=e212]:
+                    - img [ref=e213]
+                    - text: "21"
+                  - generic [ref=e218]:
+                    - img [ref=e219]
+                    - text: "468"
+              - generic [ref=e221]:
+                - generic [ref=e222]: Quality
+                - generic [ref=e223]: 91%
+            - generic [ref=e225] [cursor=pointer]:
+              - generic [ref=e226]:
+                - heading "orchid-api" [level=3] [ref=e227]
+                - paragraph [ref=e228]: A Go API for workflow orchestration, queue processing, and resilient background jobs.
+                - generic [ref=e229]:
+                  - generic [ref=e230]: Go
+                  - generic [ref=e232]:
+                    - img [ref=e233]
+                    - text: "88"
+                  - generic [ref=e235]:
+                    - img [ref=e236]
+                    - text: "17"
+                  - generic [ref=e241]:
+                    - img [ref=e242]
+                    - text: "312"
+              - generic [ref=e244]:
+                - generic [ref=e245]: Quality
+                - generic [ref=e246]: 87%
+            - generic [ref=e248] [cursor=pointer]:
+              - generic [ref=e249]:
+                - heading "vector-queue" [level=3] [ref=e250]
+                - paragraph [ref=e251]: A durable queue abstraction for high-throughput event processing and observability.
+                - generic [ref=e252]:
+                  - generic [ref=e253]: TypeScript
+                  - generic [ref=e255]:
+                    - img [ref=e256]
+                    - text: "74"
+                  - generic [ref=e258]:
+                    - img [ref=e259]
+                    - text: "10"
+                  - generic [ref=e264]:
+                    - img [ref=e265]
+                    - text: "187"
+              - generic [ref=e267]:
+                - generic [ref=e268]: Quality
+                - generic [ref=e269]: 79%
+            - generic [ref=e271] [cursor=pointer]:
+              - generic [ref=e272]:
+                - heading "atlas-worker" [level=3] [ref=e273]
+                - paragraph [ref=e274]: Python automation service for document ingestion, OCR, and scoring pipelines.
+                - generic [ref=e275]:
+                  - generic [ref=e276]: Python
+                  - generic [ref=e278]:
+                    - img [ref=e279]
+                    - text: "61"
+                  - generic [ref=e281]:
+                    - img [ref=e282]
+                    - text: "12"
+                  - generic [ref=e287]:
+                    - img [ref=e288]
+                    - text: "229"
+              - generic [ref=e290]:
+                - generic [ref=e291]: Quality
+                - generic [ref=e292]: 83%

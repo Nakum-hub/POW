@@ -1,0 +1,10 @@
+- generic [ref=e2]:
+  - generic [ref=e3]: Supabase is unreachable, so SkillOS is running with built-in preview data.
+  - generic [ref=e5]:
+    - heading "Profile unavailable" [level=1] [ref=e6]
+    - paragraph [ref=e7]: This developer profile is private or doesn't exist.
+    - generic [ref=e8]:
+      - link "Search developers" [ref=e9] [cursor=pointer]:
+        - /url: /search
+      - link "Claim profile" [ref=e10] [cursor=pointer]:
+        - /url: /login

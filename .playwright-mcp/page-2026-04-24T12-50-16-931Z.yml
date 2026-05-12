@@ -1,0 +1,130 @@
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - generic [ref=e5]:
+      - link "SkillOS Developer skill intelligence" [ref=e6] [cursor=pointer]:
+        - /url: /
+        - img [ref=e8]
+        - generic [ref=e10]:
+          - generic [ref=e11]: SkillOS
+          - generic [ref=e12]: Developer skill intelligence
+      - generic [ref=e13]:
+        - link "Search talent" [ref=e14] [cursor=pointer]:
+          - /url: /search
+        - button "Connect GitHub" [ref=e15] [cursor=pointer]:
+          - img [ref=e16]
+          - text: Connect GitHub
+  - main [ref=e19]:
+    - generic [ref=e22]:
+      - generic [ref=e23]:
+        - generic [ref=e24]:
+          - img [ref=e25]
+          - text: Replace resumes with proof of work
+        - generic [ref=e27]: Trusted hiring signal
+        - heading "Your Code. Verified. Trusted." [level=1] [ref=e28]
+        - paragraph [ref=e29]: Replace your resume with proof of work. SkillOS derives developer skill intelligence from real GitHub code so recruiters can search verified talent with evidence instead of guesses.
+        - generic [ref=e30]:
+          - button "Connect GitHub" [ref=e31] [cursor=pointer]:
+            - text: Connect GitHub
+            - img [ref=e32]
+          - link "Search verified talent" [ref=e34] [cursor=pointer]:
+            - /url: /search
+      - generic [ref=e37]:
+        - generic [ref=e38]:
+          - generic [ref=e39]:
+            - generic [ref=e40]: Verified profile
+            - generic [ref=e41]: Full-stack developer
+          - generic [ref=e42]: Live from GitHub
+        - generic [ref=e43]:
+          - generic [ref=e44]:
+            - generic [ref=e45]: Top languages
+            - generic [ref=e46]: TypeScript, Go, Python
+          - generic [ref=e47]:
+            - generic [ref=e48]: Public confidence
+            - generic [ref=e49]: React 92%, Docker 84%
+          - generic [ref=e50]:
+            - generic [ref=e51]: Verified repos
+            - generic [ref=e52]: 18 analyzed repositories
+          - generic [ref=e53]:
+            - generic [ref=e54]: Hiring signal
+            - generic [ref=e55]: Evidence-backed skill graph
+        - generic [ref=e56]:
+          - generic [ref=e57]:
+            - generic [ref=e58]: Skill graph snapshot
+            - generic [ref=e59]: 92% verified confidence
+          - generic [ref=e60]:
+            - generic [ref=e62]:
+              - generic [ref=e63]: TypeScript
+              - generic [ref=e64]: 92%
+            - generic [ref=e68]:
+              - generic [ref=e69]: React
+              - generic [ref=e70]: 89%
+            - generic [ref=e74]:
+              - generic [ref=e75]: PostgreSQL
+              - generic [ref=e76]: 76%
+    - generic [ref=e79]:
+      - generic [ref=e80]:
+        - generic [ref=e81]: How it works
+        - heading "Three steps from code to trusted hiring signal" [level=2] [ref=e82]
+      - generic [ref=e83]:
+        - generic [ref=e84]:
+          - img [ref=e86]
+          - heading "Connect GitHub" [level=3] [ref=e89]
+          - paragraph [ref=e90]: Developers sign in once and grant read-only access to repositories they already maintain.
+        - generic [ref=e91]:
+          - img [ref=e93]
+          - heading "We analyze your code" [level=3] [ref=e97]
+          - paragraph [ref=e98]: SkillOS inspects repositories, topics, commits, tests, and quality signals to build a verified graph.
+        - generic [ref=e99]:
+          - img [ref=e101]
+          - heading "Recruiters find you" [level=3] [ref=e104]
+          - paragraph [ref=e105]: Public profiles become searchable by verified skill confidence, not self-reported keywords.
+    - generic [ref=e107]:
+      - generic [ref=e108]:
+        - img [ref=e110]
+        - generic [ref=e113]: No more lying about skills
+      - generic [ref=e114]:
+        - img [ref=e116]
+        - generic [ref=e119]: Real code evidence
+      - generic [ref=e120]:
+        - img [ref=e122]
+        - generic [ref=e125]: Recruiters search by verified skill
+    - generic [ref=e127]:
+      - generic [ref=e128]:
+        - generic [ref=e129]: Proof, not posture
+        - heading "Hiring teams get a credible story about how someone actually builds." [level=2] [ref=e130]
+        - paragraph [ref=e131]: Sample profile output combines stack depth, repository quality, activity signals, and public confidence settings into a shareable page recruiters can browse and technical leads can validate quickly.
+      - generic [ref=e132]:
+        - generic [ref=e133]:
+          - generic [ref=e134]:
+            - generic [ref=e135]: Sample skill profile
+            - generic [ref=e136]: Aarav Rao
+          - generic [ref=e137]: Verified via GitHub
+        - generic [ref=e138]:
+          - generic [ref=e139]: TypeScript
+          - generic [ref=e140]: React
+          - generic [ref=e141]: Next.js
+          - generic [ref=e142]: PostgreSQL
+          - generic [ref=e143]: Docker
+        - generic [ref=e144]:
+          - generic [ref=e145]: Built production SaaS workflows with strong test coverage.
+          - generic [ref=e146]: Maintains active repositories with recent commits and documentation.
+          - generic [ref=e147]: Demonstrates system design breadth across frontend and backend.
+          - generic [ref=e148]: Public profile link ready for recruiters and hiring managers.
+    - generic [ref=e151]:
+      - generic [ref=e152]:
+        - generic [ref=e153]: Start now
+        - heading "Turn your GitHub history into a hiring advantage." [level=2] [ref=e154]
+        - paragraph [ref=e155]: Connect your repositories, generate a public proof-of-work profile, and let recruiters search verified strengths instead of keyword padding.
+      - generic [ref=e156]:
+        - button "Connect GitHub" [ref=e157] [cursor=pointer]
+        - link "Browse talent" [ref=e158] [cursor=pointer]:
+          - /url: /search
+  - contentinfo [ref=e159]:
+    - generic [ref=e160]:
+      - generic [ref=e161]: SkillOS exists to make developer hiring evidence-driven.
+      - generic [ref=e162]:
+        - link "About" [ref=e163] [cursor=pointer]:
+          - /url: /
+        - link "GitHub" [ref=e164] [cursor=pointer]:
+          - /url: https://github.com
+        - generic [ref=e165]: Privacy

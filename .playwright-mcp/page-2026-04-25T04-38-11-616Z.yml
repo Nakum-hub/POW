@@ -1,0 +1,112 @@
+- generic [ref=e3]:
+  - complementary [ref=e4]:
+    - generic [ref=e5]:
+      - link "SkillOS Verified hiring workspace" [ref=e6] [cursor=pointer]:
+        - /url: /dashboard
+        - img [ref=e8]
+        - generic [ref=e11]:
+          - generic [ref=e12]: SkillOS
+          - generic [ref=e13]: Verified hiring workspace
+      - generic [ref=e14]:
+        - generic [ref=e15]: Workspace plan
+        - generic [ref=e16]:
+          - generic [ref=e17]: Growth
+          - generic [ref=e18]: active
+    - generic [ref=e19]:
+      - generic [ref=e20]:
+        - generic [ref=e21]: Workspace
+        - navigation [ref=e22]:
+          - link "Overview" [ref=e23] [cursor=pointer]:
+            - /url: /dashboard
+            - img [ref=e24]
+            - generic [ref=e29]: Overview
+          - link "Recruiter Search" [ref=e30] [cursor=pointer]:
+            - /url: /search
+            - img [ref=e31]
+            - generic [ref=e34]: Recruiter Search
+          - link "Pipeline" [ref=e35] [cursor=pointer]:
+            - /url: /pipeline
+            - img [ref=e36]
+            - generic [ref=e41]: Pipeline
+      - generic [ref=e42]:
+        - generic [ref=e43]: Evidence
+        - navigation [ref=e44]:
+          - link "Skill Graph" [ref=e45] [cursor=pointer]:
+            - /url: /skills
+            - img [ref=e46]
+            - generic [ref=e56]: Skill Graph
+          - link "Repositories" [ref=e57] [cursor=pointer]:
+            - /url: /repos
+            - img [ref=e58]
+            - generic [ref=e62]: Repositories
+          - link "Candidate Briefs" [ref=e63] [cursor=pointer]:
+            - /url: /explainer
+            - img [ref=e64]
+            - generic [ref=e67]: Candidate Briefs
+      - generic [ref=e68]:
+        - generic [ref=e69]: Operations
+        - navigation [ref=e70]:
+          - link "Billing" [ref=e71] [cursor=pointer]:
+            - /url: /billing
+            - img [ref=e72]
+            - generic [ref=e74]: Billing
+      - link "Settings" [ref=e75] [cursor=pointer]:
+        - /url: /settings
+        - img [ref=e76]
+        - generic [ref=e79]: Settings
+    - generic [ref=e81]:
+      - img "Aarav Rao" [ref=e82]
+      - generic [ref=e83]:
+        - generic [ref=e84]: Aarav Rao
+        - generic [ref=e85]: "@aaravrao"
+  - main [ref=e86]:
+    - generic [ref=e87]:
+      - generic [ref=e88]:
+        - generic [ref=e89]: Briefs
+        - heading "Candidate Briefs" [level=1] [ref=e90]
+        - paragraph [ref=e91]: Prepare concise project summaries for recruiters or technical interviewers. Recruiting briefs focus on role fit and business value; technical briefs focus on architecture, stack decisions, and code quality signals.
+      - generic [ref=e92]:
+        - generic [ref=e93]:
+          - generic [ref=e94]:
+            - generic [ref=e95]: Repository
+            - combobox [ref=e96]:
+              - option "signalboard" [selected]
+              - option "orchid-api"
+              - option "vector-queue"
+              - option "atlas-worker"
+            - generic [ref=e97]:
+              - generic [ref=e98]:
+                - heading "signalboard" [level=2] [ref=e99]
+                - generic [ref=e100]: TypeScript
+              - paragraph [ref=e101]: A multi-tenant product analytics dashboard with event ingestion and role-based access.
+              - generic [ref=e102]:
+                - generic [ref=e103]: 142 stars
+                - generic [ref=e104]: 468 commits
+                - generic [ref=e105]: 91% quality
+          - generic [ref=e106]:
+            - generic [ref=e107]: Audience
+            - generic [ref=e108]:
+              - button "Recruiting brief Translate engineering work into role fit, business value, and hiring signals." [ref=e109] [cursor=pointer]:
+                - generic [ref=e110]: Recruiting brief
+                - generic [ref=e111]: Translate engineering work into role fit, business value, and hiring signals.
+              - button "Technical brief Focus on architecture, stack choices, complexity, and repository quality signals." [ref=e112] [cursor=pointer]:
+                - generic [ref=e113]: Technical brief
+                - generic [ref=e114]: Focus on architecture, stack choices, complexity, and repository quality signals.
+            - button "Generate brief" [ref=e115] [cursor=pointer]:
+              - img [ref=e116]
+              - text: Generate brief
+        - generic [ref=e118]:
+          - generic [ref=e119]:
+            - generic [ref=e120]:
+              - heading "Prepared brief" [level=2] [ref=e121]
+              - paragraph [ref=e122]: Use it in outbound notes, scorecards, or interview handoffs.
+            - generic [ref=e123]:
+              - button "Copy" [disabled] [ref=e124]:
+                - img [ref=e125]
+                - text: Copy
+              - button "Refresh" [ref=e128] [cursor=pointer]:
+                - img [ref=e129]
+                - text: Refresh
+          - generic [ref=e135]:
+            - img [ref=e137]
+            - paragraph [ref=e140]: Choose a repository and audience, then generate a candidate brief.

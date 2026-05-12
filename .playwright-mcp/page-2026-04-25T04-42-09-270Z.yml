@@ -1,0 +1,64 @@
+- generic [ref=e3]:
+  - complementary [ref=e4]:
+    - generic [ref=e5]:
+      - link "SkillOS Verified hiring workspace" [ref=e6] [cursor=pointer]:
+        - /url: /dashboard
+        - img [ref=e8]
+        - generic [ref=e11]:
+          - generic [ref=e12]: SkillOS
+          - generic [ref=e13]: Verified hiring workspace
+      - generic [ref=e14]:
+        - generic [ref=e15]: Workspace plan
+        - generic [ref=e16]:
+          - generic [ref=e17]: Starter
+          - generic [ref=e18]: trialing
+    - generic [ref=e19]:
+      - generic [ref=e20]:
+        - generic [ref=e21]: Workspace
+        - navigation [ref=e22]:
+          - link "Overview" [ref=e23] [cursor=pointer]:
+            - /url: /dashboard
+            - img [ref=e24]
+            - generic [ref=e29]: Overview
+          - link "Recruiter Search" [ref=e30] [cursor=pointer]:
+            - /url: /search
+            - img [ref=e31]
+            - generic [ref=e34]: Recruiter Search
+          - link "Pipeline" [ref=e35] [cursor=pointer]:
+            - /url: /pipeline
+            - img [ref=e36]
+            - generic [ref=e41]: Pipeline
+      - generic [ref=e42]:
+        - generic [ref=e43]: Evidence
+        - navigation [ref=e44]:
+          - link "Skill Graph" [ref=e45] [cursor=pointer]:
+            - /url: /skills
+            - img [ref=e46]
+            - generic [ref=e56]: Skill Graph
+          - link "Repositories" [ref=e57] [cursor=pointer]:
+            - /url: /repos
+            - img [ref=e58]
+            - generic [ref=e62]: Repositories
+          - link "Candidate Briefs" [ref=e63] [cursor=pointer]:
+            - /url: /explainer
+            - img [ref=e64]
+            - generic [ref=e67]: Candidate Briefs
+      - generic [ref=e68]:
+        - generic [ref=e69]: Operations
+        - navigation [ref=e70]:
+          - link "Billing" [ref=e71] [cursor=pointer]:
+            - /url: /billing
+            - img [ref=e72]
+            - generic [ref=e74]: Billing
+      - link "Settings" [ref=e75] [cursor=pointer]:
+        - /url: /settings
+        - img [ref=e76]
+        - generic [ref=e79]: Settings
+    - generic [ref=e81]:
+      - img "Aarav Rao" [ref=e82]
+      - generic [ref=e83]:
+        - generic [ref=e84]: Aarav Rao
+        - generic [ref=e85]: "@aaravrao"
+  - button "Toggle navigation" [ref=e86] [cursor=pointer]:
+    - img [ref=e87]
+  - main [ref=e88]
