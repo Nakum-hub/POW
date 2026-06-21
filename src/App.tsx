@@ -113,9 +113,13 @@ function EnvironmentBadge() {
   );
 }
 
+// Strip the trailing slash from Vite's BASE_URL ("/" -> "", "/POW/" -> "/POW")
+// so React Router's basename matches the path the app is actually served from.
+const routerBasename = import.meta.env.BASE_URL.replace(/\/$/, '');
+
 function App() {
   return (
-    <Router>
+    <Router basename={routerBasename}>
       <ErrorBoundary>
         <AuthProvider>
           <AppProvider>

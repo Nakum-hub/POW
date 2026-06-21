@@ -366,7 +366,7 @@ export async function fetchPublicProfileByGithubId(githubId: string): Promise<Pu
   const { data: profileData } = await supabase
     .from('profiles')
     .select('*')
-    .ilike('github_id', githubId)
+    .eq('github_id', githubId.toLowerCase())
     .eq('is_public', true)
     .maybeSingle();
 

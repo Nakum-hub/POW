@@ -9,9 +9,17 @@ const hasConfiguredAnonKey = Boolean(rawSupabaseAnonKey && rawSupabaseAnonKey !=
 
 export const appEnvironment = rawAppEnvironment || (import.meta.env.PROD ? 'production' : 'development');
 export const isProductionEnvironment = import.meta.env.PROD || appEnvironment === 'production';
-export const sandboxModeRequested = import.meta.env.VITE_FORCE_DEMO_MODE === 'true';
+
+// Explicit opt-in for hosting a public, backend-free demo (e.g. GitHub Pages / Netlify).
+// Unlike VITE_FORCE_DEMO_MODE (which is intentionally ignored in production builds so a
+// misconfigured deploy can never silently serve seeded data to buyers), this flag is
+// honored even in production. Whoever deploys the demo must set it deliberately.
+export const publicDemoModeRequested = import.meta.env.VITE_PUBLIC_DEMO === 'true';
+export const sandboxModeRequested =
+  import.meta.env.VITE_FORCE_DEMO_MODE === 'true' || publicDemoModeRequested;
 export const sandboxModeAllowed =
-  sandboxModeRequested && import.meta.env.VITE_ALLOW_SANDBOX_MODE === 'true' && !isProductionEnvironment;
+  publicDemoModeRequested ||
+  (sandboxModeRequested && import.meta.env.VITE_ALLOW_SANDBOX_MODE === 'true' && !isProductionEnvironment);
 export const sandboxModeBlocked = sandboxModeRequested && !sandboxModeAllowed;
 export const forceDemoMode = sandboxModeAllowed;
 export const hasSupabaseConfig = hasConfiguredUrl && hasConfiguredAnonKey;

@@ -1,3 +1,4 @@
+import type { BackendMode } from './backend';
 import type { PlanKey } from '../types';
 
 export interface ReadinessCheck {
@@ -8,7 +9,7 @@ export interface ReadinessCheck {
 }
 
 export interface ReadinessInput {
-  activeMode: 'demo' | 'supabase';
+  activeMode: BackendMode;
   forceDemoMode: boolean;
   hasSupabaseConfig: boolean;
   planKey: PlanKey;

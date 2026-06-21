@@ -198,6 +198,7 @@ export default function Search() {
     { label: 'Concepts', value: 'concept' },
     { label: 'DevOps', value: 'devops' },
     { label: 'Databases', value: 'database' },
+    { label: 'Practices', value: 'practice' },
   ];
 
   const content = (

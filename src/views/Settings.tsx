@@ -119,6 +119,8 @@ export default function Settings() {
   const [loading, setLoading] = useState(true);
   const [savingVisibility, setSavingVisibility] = useState(false);
   const [reanalyzing, setReanalyzing] = useState(false);
+  const [reanalyzeProgress, setReanalyzeProgress] = useState(0);
+  const [reanalyzeStage, setReanalyzeStage] = useState('');
   const [showDeleteAnalysisModal, setShowDeleteAnalysisModal] = useState(false);
   const [showDeleteAccountModal, setShowDeleteAccountModal] = useState(false);
   const [accountConfirmation, setAccountConfirmation] = useState('');
@@ -189,7 +191,12 @@ export default function Settings() {
 
     try {
       setReanalyzing(true);
-      await analyzeRepositories(session.access_token, session.provider_token || '');
+      setReanalyzeProgress(0);
+      setReanalyzeStage('Starting analysis...');
+      await analyzeRepositories(session.access_token, session.provider_token || '', (progress, stage) => {
+        setReanalyzeProgress(progress);
+        setReanalyzeStage(stage);
+      });
       await refreshProfile();
       const [freshSkills, freshRepos, refreshedProfile] = await Promise.all([
         fetchUserSkills(profileState!.id),
@@ -211,6 +218,8 @@ export default function Settings() {
       addToast(toErrorMessage(error, 'Analysis failed.'), 'error');
     } finally {
       setReanalyzing(false);
+      setReanalyzeProgress(0);
+      setReanalyzeStage('');
     }
   }
 
@@ -319,6 +328,21 @@ export default function Settings() {
             </button>
           </div>
 
+          {reanalyzing && (
+            <div className="mb-5 rounded-2xl border border-blue-200 bg-blue-50 p-4" role="status" aria-live="polite">
+              <div className="mb-2 flex items-center justify-between text-sm font-medium text-blue-900">
+                <span className="truncate pr-3">{reanalyzeStage || 'Analyzing repositories...'}</span>
+                <span className="tabular-nums">{reanalyzeProgress}%</span>
+              </div>
+              <div className="h-2 overflow-hidden rounded-full bg-blue-100">
+                <div
+                  className="h-full rounded-full bg-blue-600 transition-[width] duration-300 ease-out"
+                  style={{ width: `${Math.min(Math.max(reanalyzeProgress, 0), 100)}%` }}
+                />
+              </div>
+            </div>
+          )}
+
           <div className="flex flex-col gap-5 rounded-2xl border border-slate-200 bg-slate-50 p-5 sm:flex-row sm:items-center">
             <img
               src={profileState.avatar_url || avatarPlaceholder}
@@ -338,7 +362,7 @@ export default function Settings() {
                   {repoCount} repositories
                 </span>
                 <span className="inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-3 py-1 font-medium text-gray-600">
-                  {skillCount} verified skills
+                  {skillCount} skills detected
                 </span>
               </div>
             </div>
