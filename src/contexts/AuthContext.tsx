@@ -74,9 +74,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
         if (!data) {
           const userData = sessionUser.user_metadata;
+          const rawGithubId = userData?.user_name || userData?.preferred_username || 'unknown';
           const newProfile: Partial<Profile> = {
             id: userId,
-            github_id: userData?.user_name || userData?.preferred_username || 'unknown',
+            github_id: String(rawGithubId).toLowerCase(),
             name: userData?.full_name || userData?.name || 'Unknown User',
             avatar_url: userData?.avatar_url || '',
           };
@@ -193,7 +194,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'github',
       options: {
-        scopes: 'read:user repo',
+        scopes: 'read:user read:org',
         redirectTo: `${window.location.origin}/`,
       },
     });

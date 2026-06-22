@@ -166,7 +166,7 @@ export default function PublicProfile() {
             </div>
 
             <div className="grid gap-3 sm:grid-cols-2">
-              <Metric label="Verified skills" value={skills.length.toString()} />
+              <Metric label="Skills detected" value={skills.length.toString()} />
               <Metric label="Top repositories" value={repoCount.toString()} />
             </div>
           </div>

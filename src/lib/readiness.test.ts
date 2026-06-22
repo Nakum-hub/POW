@@ -29,4 +29,17 @@ describe('readiness', () => {
     expect(checks.every((check) => check.status !== 'fail')).toBe(true);
     expect(getReadinessScore(checks)).toBeGreaterThanOrEqual(75);
   });
+
+  it('treats an unavailable backend as a hard failure', () => {
+    const checks = getReadinessChecks({
+      activeMode: 'unavailable',
+      forceDemoMode: false,
+      hasSupabaseConfig: false,
+      planKey: 'starter',
+      shortlistCount: 0,
+      savedCandidateCount: 0,
+    });
+
+    expect(checks.find((check) => check.id === 'backend')?.status).toBe('fail');
+  });
 });

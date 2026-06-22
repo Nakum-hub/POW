@@ -8,7 +8,8 @@ SkillOS turns GitHub activity into a proof-of-work talent profile. Developers co
 - Developer dashboard, skill graph, repository explorer, public profile, recruiter search, and project explainer
 - Recruiter pipeline workspace, shortlist management, and revenue-oriented billing surface
 - Supabase schema plus edge functions for repository analysis, project explanations, and account deletion
-- Production build, lint, TypeScript checks, and unit coverage for revenue logic
+- File-level repository analysis: the analyzer opens real source files, matches import/usage patterns, and stores the actual file path, code snippet, and line numbers as evidence
+- Production build, lint, TypeScript checks, and unit coverage; GitHub Actions CI runs all four gates on every push
 
 ## Local setup
 
@@ -44,6 +45,13 @@ If the Anthropic variables are missing, the project explainer still works using 
 - `npm run typecheck`
 - `npm run test`
 - `npm run build`
+
+## Hosting
+
+See [`DEPLOYMENT.md`](./DEPLOYMENT.md) for full instructions. In short:
+
+- **Public demo (no backend):** set `VITE_PUBLIC_DEMO=true` and deploy `dist` to GitHub Pages (workflow included), Netlify, or Vercel.
+- **Live product:** create a Supabase project, run the migrations, deploy the edge functions, configure GitHub OAuth, and set the `VITE_SUPABASE_*` variables.
 
 ## Production notes
 
