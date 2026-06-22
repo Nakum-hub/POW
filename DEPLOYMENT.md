@@ -39,14 +39,18 @@ The app deliberately refuses to run seeded data in a production build unless you
 **explicitly** opt in with `VITE_PUBLIC_DEMO=true`. That guard prevents an
 accidental deploy from ever serving fake data as if it were the real product.
 
-### A1. GitHub Pages (automated via GitHub Actions)
+### A1. GitHub Pages (one-click, via GitHub Actions)
 
 A workflow is included at `.github/workflows/deploy-pages.yml`. It builds the app
 with the public-demo flag and the `/POW/` base path, then publishes to Pages.
 
-1. In the repo: **Settings → Pages → Build and deployment → Source = GitHub Actions**.
-2. Push to `main` (or run the workflow manually from the **Actions** tab).
-3. The site goes live at `https://nakum-hub.github.io/POW/`.
+1. Go to the repo's **Actions** tab.
+2. Select **"Deploy demo to GitHub Pages"** and click **Run workflow** (on `main`).
+3. The first run turns Pages on for you (`enablement: true`) and publishes the site to
+   `https://nakum-hub.github.io/POW/`. Re-run it any time to refresh the demo.
+
+> The deploy is intentionally **manual** (not on every push) so it never shows up as a
+> failing check before you've chosen to publish. Day-to-day commits only run the CI checks.
 
 Deep links work because the workflow copies `index.html` to `404.html` (a standard
 SPA fallback for Pages), and the router is mounted at the `/POW/` base path.

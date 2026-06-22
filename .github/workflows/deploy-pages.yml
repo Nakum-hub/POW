@@ -1,11 +1,15 @@
 name: Deploy demo to GitHub Pages
 
 # Publishes a backend-free public demo of SkillOS to GitHub Pages.
-# Enable once via: repo Settings -> Pages -> Source = "GitHub Actions".
+#
+# This workflow is MANUAL on purpose: run it from the Actions tab
+# (Actions -> "Deploy demo to GitHub Pages" -> "Run workflow") whenever you
+# want to publish/refresh the demo. Running it manually keeps it from showing
+# up as a failing check on every commit before Pages has been set up, and the
+# `enablement: true` below turns Pages on for you on the first run, so there is
+# no separate "Settings -> Pages" step required.
 
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -36,6 +40,9 @@ jobs:
       - name: Add SPA fallback for client-side routing
         run: cp dist/index.html dist/404.html
       - uses: actions/configure-pages@v5
+        with:
+          # Turn Pages on automatically on the first manual run.
+          enablement: true
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
