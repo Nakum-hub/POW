@@ -31,5 +31,14 @@ jobs:
       - uses: denoland/setup-deno@v2
         with:
           deno-version: v2.x
-      - run: deno check supabase/functions/**/*.ts
-      - run: deno lint supabase/functions/
+      # *.test.ts files are Vitest-only (bare 'vitest' specifier, extensionless
+      # relative imports) and must never be passed to `deno check`/`deno lint`.
+      # `find` is used instead of a `**` glob because bash's globstar isn't
+      # enabled by default in non-interactive shells, including this runner's.
+      - name: Typecheck edge functions
+        run: |
+          files=$(find supabase/functions -name '*.ts' ! -name '*.test.ts')
+          echo "Checking: $files"
+          deno check $files
+      - name: Lint edge functions
+        run: deno lint supabase/functions/
