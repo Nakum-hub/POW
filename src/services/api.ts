@@ -421,6 +421,53 @@ export async function generateProjectExplanation(
   return response.json() as Promise<{ explanation: string }>;
 }
 
+export interface RazorpayOrder {
+  order_id: string;
+  amount: number;
+  currency: string;
+  key_id: string;
+  plan_key: string;
+}
+
+export async function createRazorpayOrder(planKey: string, sessionToken: string): Promise<RazorpayOrder> {
+  const response = await fetch(`${supabaseUrl}/functions/v1/create-razorpay-order`, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${sessionToken}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ plan_key: planKey }),
+  });
+
+  const data = await response.json();
+  if (!response.ok) {
+    throw new Error(data.error || 'Failed to start checkout');
+  }
+
+  return data as RazorpayOrder;
+}
+
+export async function verifyRazorpayPayment(
+  payload: { razorpay_order_id: string; razorpay_payment_id: string; razorpay_signature: string },
+  sessionToken: string
+): Promise<{ ok: boolean; plan_key: string }> {
+  const response = await fetch(`${supabaseUrl}/functions/v1/verify-razorpay-payment`, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${sessionToken}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(payload),
+  });
+
+  const data = await response.json();
+  if (!response.ok) {
+    throw new Error(data.error || 'Payment verification failed');
+  }
+
+  return data as { ok: boolean; plan_key: string };
+}
+
 export async function deleteAccount(sessionToken: string, userId: string): Promise<void> {
   if (getBackendMode() === 'demo') {
     await deleteDemoAccount(userId);

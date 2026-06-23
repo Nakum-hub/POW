@@ -89,11 +89,32 @@ export async function fetchCurrentSubscription(userId: string) {
 }
 
 export async function changeWorkspaceSubscriptionPlan(userId: string, planKey: Subscription['plan_key']) {
-  if (getBackendMode() !== 'demo') {
-    throw new Error('Live plan changes should be managed through billing ops.');
+  if (getBackendMode() === 'demo') {
+    return normalizeSubscription(await updateDemoSubscriptionPlan(userId, planKey), userId);
   }
 
-  return normalizeSubscription(await updateDemoSubscriptionPlan(userId, planKey), userId);
+  if (planKey === 'starter') {
+    const { data, error } = await supabase
+      .from('subscriptions')
+      .upsert(
+        [{ user_id: userId, plan_key: 'starter', status: 'active', monthly_price: 0, updated_at: new Date().toISOString() }],
+        { onConflict: 'user_id' }
+      )
+      .select('*')
+      .single();
+
+    if (error) {
+      throw error;
+    }
+
+    return normalizeSubscription(data as Subscription, userId);
+  }
+
+  if (planKey === 'enterprise') {
+    throw new Error('Enterprise is custom-priced. Use the "Contact sales" action instead of self-serve checkout.');
+  }
+
+  throw new Error('Paid plans go through Razorpay checkout -- use the upgrade button on the Billing page, not a direct plan change.');
 }
 
 export async function fetchRecruiterLists(userId: string) {

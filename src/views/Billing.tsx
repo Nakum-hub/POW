@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import { useState, type ReactNode } from 'react';
 import { ArrowRight, CheckCircle2, Layers3, ShieldCheck, Users } from 'lucide-react';
 import { useToast } from '../components/Toast';
 import { useAuth } from '../contexts/AuthContext';
@@ -11,14 +11,56 @@ import {
   getUpgradeTarget,
   planDefinitions,
 } from '../lib/plans';
+import { createRazorpayOrder, verifyRazorpayPayment } from '../services/api';
 import { changeWorkspaceSubscriptionPlan } from '../services/revenue';
+
+interface RazorpayCheckoutResponse {
+  razorpay_order_id: string;
+  razorpay_payment_id: string;
+  razorpay_signature: string;
+}
+
+interface RazorpayCheckoutInstance {
+  open: () => void;
+}
+
+declare global {
+  interface Window {
+    Razorpay?: new (options: Record<string, unknown>) => RazorpayCheckoutInstance;
+  }
+}
+
+const RAZORPAY_CHECKOUT_SRC = 'https://checkout.razorpay.com/v1/checkout.js';
+
+function loadRazorpayScript(): Promise<void> {
+  return new Promise((resolve, reject) => {
+    if (window.Razorpay) {
+      resolve();
+      return;
+    }
+
+    const existing = document.querySelector(`script[src="${RAZORPAY_CHECKOUT_SRC}"]`);
+    if (existing) {
+      existing.addEventListener('load', () => resolve());
+      existing.addEventListener('error', () => reject(new Error('Failed to load Razorpay checkout.')));
+      return;
+    }
+
+    const script = document.createElement('script');
+    script.src = RAZORPAY_CHECKOUT_SRC;
+    script.onload = () => resolve();
+    script.onerror = () => reject(new Error('Failed to load Razorpay checkout.'));
+    document.body.appendChild(script);
+  });
+}
 
 export default function Billing() {
   useDocumentTitle('SkillOS - Billing & Plans');
 
-  const { profile, mode } = useAuth();
+  const { profile, mode, session } = useAuth();
   const { subscription, recruiterLists, refreshRevenue } = useRevenue();
   const { addToast } = useToast();
+  const [checkoutPlanKey, setCheckoutPlanKey] = useState<string | null>(null);
 
   const currentPlan = getPlanDefinition(subscription?.plan_key || 'starter');
   const entitlements = getPlanEntitlements(subscription);
@@ -35,6 +77,79 @@ export default function Billing() {
       addToast(`Workspace plan changed to ${getPlanDefinition(planKey).name}.`, 'success');
     } catch (error) {
       addToast(error instanceof Error ? error.message : 'Unable to change plan.', 'error');
+    }
+  }
+
+  async function handleUpgradeClick(planKey: typeof currentPlan.key) {
+    if (!profile) {
+      addToast('Authentication required', 'error');
+      return;
+    }
+
+    // Demo mode and free downgrades never touch a payment provider.
+    if (mode === 'demo' || planKey === 'starter') {
+      await handlePlanChange(planKey);
+      return;
+    }
+
+    if (!session?.access_token) {
+      addToast('Authentication required', 'error');
+      return;
+    }
+
+    setCheckoutPlanKey(planKey);
+
+    try {
+      const order = await createRazorpayOrder(planKey, session.access_token);
+      await loadRazorpayScript();
+
+      if (!window.Razorpay) {
+        throw new Error('Razorpay checkout failed to load.');
+      }
+
+      const razorpay = new window.Razorpay({
+        key: order.key_id,
+        order_id: order.order_id,
+        amount: order.amount,
+        currency: order.currency,
+        name: 'SkillOS',
+        description: `${getPlanDefinition(planKey).name} plan`,
+        prefill: { name: profile.name },
+        theme: { color: '#0f172a' },
+        handler: (response: RazorpayCheckoutResponse) => {
+          void (async () => {
+            try {
+              await verifyRazorpayPayment(
+                {
+                  razorpay_order_id: response.razorpay_order_id,
+                  razorpay_payment_id: response.razorpay_payment_id,
+                  razorpay_signature: response.razorpay_signature,
+                },
+                session.access_token
+              );
+              await refreshRevenue();
+              addToast(`Workspace plan changed to ${getPlanDefinition(planKey).name}.`, 'success');
+            } catch (verifyError) {
+              addToast(
+                verifyError instanceof Error
+                  ? verifyError.message
+                  : 'Payment received but verification failed -- contact support with your payment ID.',
+                'error'
+              );
+            } finally {
+              setCheckoutPlanKey(null);
+            }
+          })();
+        },
+        modal: {
+          ondismiss: () => setCheckoutPlanKey(null),
+        },
+      });
+
+      razorpay.open();
+    } catch (error) {
+      addToast(error instanceof Error ? error.message : 'Unable to start checkout.', 'error');
+      setCheckoutPlanKey(null);
     }
   }
 
@@ -98,7 +213,9 @@ export default function Billing() {
           {planDefinitions.map((plan) => {
             const isCurrentPlan = plan.key === currentPlan.key;
             const nextUpgrade = getUpgradeTarget(currentPlan.key);
-            const canSwitchInWorkspace = mode === 'demo' && !isCurrentPlan;
+            const isSelfServePlan = plan.key === 'starter' || plan.key === 'growth' || plan.key === 'scale';
+            const canSwitchInWorkspace = isSelfServePlan && !isCurrentPlan;
+            const isCheckingOut = checkoutPlanKey === plan.key;
 
             return (
               <div
@@ -141,8 +258,12 @@ export default function Billing() {
                       Active plan
                     </div>
                   ) : canSwitchInWorkspace ? (
-                    <button onClick={() => void handlePlanChange(plan.key)} className="btn-primary w-full">
-                      Switch to {plan.name}
+                    <button
+                      onClick={() => void handleUpgradeClick(plan.key)}
+                      disabled={isCheckingOut}
+                      className="btn-primary w-full disabled:cursor-not-allowed disabled:opacity-60"
+                    >
+                      {isCheckingOut ? 'Processing...' : `Switch to ${plan.name}`}
                     </button>
                   ) : (
                     <a

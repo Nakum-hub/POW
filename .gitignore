@@ -21,3 +21,12 @@ dist-ssr
 *.sln
 *.sw?
 .env
+
+# Local agent/browser test artifacts - never commit these
+.playwright-cli/
+.playwright-mcp/
+
+# Review screenshots and internal planning docs - keep these out of the public repo
+# (root-level only; this intentionally does NOT match src/ or public/ assets)
+/*.png
+/SkillOS_Master_Engineering_Prompt.docx

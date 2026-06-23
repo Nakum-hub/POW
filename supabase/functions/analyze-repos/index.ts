@@ -1,4 +1,20 @@
 import { createClient } from "npm:@supabase/supabase-js@2";
+import {
+  PRIORITY_EXTENSIONS,
+  SKILL_CATEGORY,
+  computeComplexityScore,
+  computeMaturityScore,
+  computeQualityScore,
+  computeSecurityScore,
+  computeTestingScore,
+  detectContentSkills,
+  detectLanguageSkills,
+  detectTreeSignals,
+  extensionOf,
+  fileHasSecretPattern,
+  fileUsesEnvVars,
+  inferConceptSkills,
+} from "./analyzer-core.ts";
 
 // ---------------------------------------------------------------------------
 // SkillOS repository analyzer (real code analysis)
@@ -9,6 +25,11 @@ import { createClient } from "npm:@supabase/supabase-js@2";
 // file path, a code snippet, and line numbers as evidence. Repository scores
 // (testing / security / quality / complexity / maturity) are derived from
 // real file-level signals.
+//
+// All of the actual detection/scoring logic lives in ./analyzer-core.ts,
+// which has zero Deno/network/database dependencies and is unit tested
+// directly (analyzer-core.test.ts). This file owns I/O only: GitHub fetches,
+// Supabase reads/writes, SSE streaming, and orchestration.
 //
 // The HTTP contract (POST -> Server-Sent Events stream of {progress, stage,
 // done, repos_analyzed, skills_detected, error}) is unchanged, so the
@@ -35,95 +56,9 @@ interface TreeEntry {
   type: string;
 }
 
-// A content-based detector: when `pattern` matches a source file, we have real
-// evidence that `skill` is used, anchored to a concrete file + line.
-interface ContentRule {
-  pattern: RegExp;
-  skill: string;
-  category: string;
-}
-
-// Maps real import / usage patterns to skills in the seeded `skills` table.
-const CONTENT_RULES: ContentRule[] = [
-  { pattern: /from\s+['"]react['"]|require\(\s*['"]react['"]\s*\)/, skill: "React", category: "framework" },
-  { pattern: /from\s+['"]react-native['"]/, skill: "Mobile Development", category: "concept" },
-  { pattern: /from\s+['"]vue['"]|createApp\(/, skill: "Vue", category: "framework" },
-  { pattern: /from\s+['"]@angular\/core['"]/, skill: "Angular", category: "framework" },
-  { pattern: /from\s+['"]express['"]|require\(\s*['"]express['"]\s*\)/, skill: "Express", category: "framework" },
-  { pattern: /from\s+fastapi\s+import|import\s+fastapi/, skill: "FastAPI", category: "framework" },
-  { pattern: /from\s+flask\s+import|import\s+flask/, skill: "Flask", category: "framework" },
-  { pattern: /^\s*import\s+django|from\s+django[.\s]/m, skill: "Django", category: "framework" },
-  { pattern: /import\s+org\.springframework/, skill: "Spring", category: "framework" },
-  { pattern: /from\s+['"](graphql|@apollo\/client|@apollo\/server)['"]/, skill: "GraphQL", category: "framework" },
-  { pattern: /from\s+['"](pg|postgres|@supabase\/supabase-js)['"]|import\s+psycopg2/, skill: "PostgreSQL", category: "database" },
-  { pattern: /from\s+['"](mongoose|mongodb)['"]|import\s+pymongo/, skill: "MongoDB", category: "database" },
-  { pattern: /from\s+['"](redis|ioredis)['"]|import\s+redis/, skill: "Redis", category: "database" },
-  { pattern: /from\s+['"](mysql2?|mariadb)['"]|import\s+pymysql/, skill: "MySQL", category: "database" },
-  { pattern: /from\s+['"](@elastic\/elasticsearch|elasticsearch)['"]/, skill: "Elasticsearch", category: "database" },
-  { pattern: /from\s+['"](vitest|jest|@testing-library\/[\w-]+|mocha|chai)['"]|import\s+pytest|require\(\s*['"](jest|mocha|chai)['"]\s*\)/, skill: "Testing", category: "practice" },
-  { pattern: /from\s+['"](redux|@reduxjs\/toolkit|zustand|mobx|recoil|jotai)['"]|createStore\(/, skill: "State Management", category: "concept" },
-  { pattern: /from\s+['"](jsonwebtoken|passport|bcrypt(js)?|next-auth)['"]|import\s+(jwt|passlib|bcrypt)/, skill: "Authentication Systems", category: "concept" },
-  { pattern: /import\s+(tensorflow|torch|sklearn|keras|numpy|pandas)|from\s+['"]@tensorflow\/tfjs['"]/, skill: "Machine Learning", category: "concept" },
-  { pattern: /from\s+['"](d3|recharts|chart\.js|plotly\.js|@nivo\/[\w-]+)['"]/, skill: "Data Visualization", category: "concept" },
-  { pattern: /from\s+['"](aws-sdk|@aws-sdk\/[\w-]+)['"]|import\s+boto3/, skill: "AWS", category: "devops" },
-  { pattern: /from\s+['"]@google-cloud\/[\w-]+['"]/, skill: "GCP", category: "devops" },
-  { pattern: /from\s+['"]@azure\/[\w-]+['"]/, skill: "Azure", category: "devops" },
-  { pattern: /gin-gonic\/gin|fiber\.New\(/, skill: "Go", category: "language" },
-];
-
-// Concept skills are inferred from the concrete skills detected in a repo.
-const CONCEPT_INFERENCE: Array<{ concept: string; when: string[] }> = [
-  { concept: "Backend Development", when: ["Express", "FastAPI", "Flask", "Django", "Spring"] },
-  { concept: "Frontend Development", when: ["React", "Vue", "Angular"] },
-  { concept: "Full-Stack Development", when: ["Express", "FastAPI", "Flask", "Django", "Spring", "React", "Vue", "Angular"] },
-  { concept: "REST API Design", when: ["Express", "FastAPI", "Flask", "Django", "Spring"] },
-  { concept: "Database Design", when: ["PostgreSQL", "MongoDB", "MySQL", "Redis", "Elasticsearch"] },
-  { concept: "System Design", when: ["Redis", "Docker", "Kubernetes"] },
-];
-
-// File extension -> language skill (real signal from the repo file tree).
-const EXTENSION_LANGUAGE: Record<string, string> = {
-  ts: "TypeScript", tsx: "TypeScript",
-  js: "JavaScript", jsx: "JavaScript", mjs: "JavaScript", cjs: "JavaScript",
-  py: "Python",
-  go: "Go",
-  rs: "Rust",
-  java: "Java",
-  rb: "Ruby",
-  php: "PHP",
-  cpp: "C++", cc: "C++", cxx: "C++", hpp: "C++",
-};
-
-// Languages-API name -> language skill.
-const LANGUAGE_NAME_SKILL: Record<string, string> = {
-  TypeScript: "TypeScript", JavaScript: "JavaScript", Python: "Python", Go: "Go",
-  Rust: "Rust", Java: "Java", Ruby: "Ruby", PHP: "PHP", "C++": "C++",
-};
-
-const SKILL_CATEGORY: Record<string, string> = {
-  TypeScript: "language", JavaScript: "language", Python: "language", Go: "language",
-  Rust: "language", Java: "language", Ruby: "language", PHP: "language", "C++": "language",
-};
-
-// Files worth opening for content analysis, by extension.
-const PRIORITY_EXTENSIONS = new Set([
-  "ts", "tsx", "js", "jsx", "mjs", "py", "go", "rs", "java", "rb", "php",
-]);
-
-// Patterns that indicate hardcoded secrets (lowers the security score).
-const SECRET_PATTERNS: RegExp[] = [
-  /(?:password|passwd)\s*[:=]\s*['"][^'"]{6,}['"]/i,
-  /(?:api[_-]?key|secret[_-]?key|access[_-]?token)\s*[:=]\s*['"][^'"]{12,}['"]/i,
-  /AKIA[0-9A-Z]{16}/,
-  /-----BEGIN (?:RSA |EC )?PRIVATE KEY-----/,
-  /Authorization:\s*Bearer\s+[A-Za-z0-9._-]{20,}/,
-];
-const ENV_USAGE = /process\.env\.|import\.meta\.env\.|Deno\.env\.get|os\.environ|System\.getenv/;
-
 const MAX_REPOS = 20;
 const MAX_FILES_PER_REPO = 15;
 const MAX_FILE_BYTES = 200_000;
-const SNIPPET_MAX = 300;
 
 function getCorsHeaders(req: Request) {
   const allowedOrigins = [
@@ -178,23 +113,6 @@ async function githubFetch(
   }
 
   return res;
-}
-
-function extensionOf(path: string): string {
-  const dot = path.lastIndexOf(".");
-  return dot >= 0 ? path.slice(dot + 1).toLowerCase() : "";
-}
-
-function snippetAround(content: string, index: number): { snippet: string; lines: number[] } {
-  const before = content.slice(0, index);
-  const startLine = before.split("\n").length; // 1-based line of the match
-  const lines = content.split("\n");
-  const from = Math.max(0, startLine - 1);
-  const to = Math.min(lines.length, startLine + 2);
-  const snippet = lines.slice(from, to).join("\n").slice(0, SNIPPET_MAX);
-  const lineNumbers: number[] = [];
-  for (let i = from + 1; i <= to; i += 1) lineNumbers.push(i);
-  return { snippet, lines: lineNumbers };
 }
 
 async function fetchRepositoryPages(
@@ -389,22 +307,7 @@ Deno.serve(async (req: Request) => {
                 .map((item) => item.path);
             }
 
-            const lowerPaths = fileStructure.map((p) => p.toLowerCase());
-            const totalFileCount = Math.max(fileStructure.length, 1);
-            const testFileCount = lowerPaths.filter((p) =>
-              /(^|\/)tests?\//.test(p) || /\.(test|spec)\./.test(p) || /(^|\/)__tests__\//.test(p)
-            ).length;
-            const hasReadme = lowerPaths.some((p) => p.startsWith("readme") || p.endsWith("/readme.md"));
-            const hasLinter = lowerPaths.some((p) =>
-              /\.eslintrc/.test(p) || /eslint\.config\./.test(p) || /\.pylintrc/.test(p) ||
-              /(^|\/)ruff\.toml/.test(p) || /\.flake8/.test(p)
-            );
-            const hasCI = lowerPaths.some((p) => p.includes(".github/workflows/") || p === ".gitlab-ci.yml" || p === ".circleci/config.yml");
-            const hasTypes = lowerPaths.some((p) => p.endsWith("tsconfig.json")) || lowerPaths.some((p) => p.endsWith(".ts") || p.endsWith(".tsx"));
-            const hasSecurityMd = lowerPaths.some((p) => p === "security.md" || p.endsWith("/security.md"));
-            const hasDockerfile = lowerPaths.some((p) => p.endsWith("dockerfile") || p.includes("docker-compose"));
-            const hasTerraform = lowerPaths.some((p) => p.endsWith(".tf"));
-            const hasK8s = lowerPaths.some((p) => p.includes("k8s/") || p.includes("kubernetes/") || p.includes("helm/") || p.endsWith("chart.yaml"));
+            const treeSignals = detectTreeSignals(fileStructure);
 
             // --- Read priority source files for real evidence ---
             const priorityFiles = fileStructure
@@ -440,21 +343,12 @@ Deno.serve(async (req: Request) => {
                 }
                 if (raw.length > MAX_FILE_BYTES) continue;
 
-                if (ENV_USAGE.test(raw)) envUsageFound = true;
-                for (const sp of SECRET_PATTERNS) {
-                  if (sp.test(raw)) {
-                    secretsFound += 1;
-                    break;
-                  }
-                }
+                if (fileUsesEnvVars(raw)) envUsageFound = true;
+                if (fileHasSecretPattern(raw)) secretsFound += 1;
 
-                for (const rule of CONTENT_RULES) {
-                  const m = rule.pattern.exec(raw);
-                  if (m && m.index !== undefined) {
-                    const { snippet, lines } = snippetAround(raw, m.index);
-                    recordSkill(rule.skill, rule.category, "PENDING", 0.9, filePath, snippet, lines);
-                    repoDetectedSkills.add(rule.skill);
-                  }
+                for (const detection of detectContentSkills(raw)) {
+                  recordSkill(detection.skill, detection.category, "PENDING", 0.9, filePath, detection.snippet, detection.lines);
+                  repoDetectedSkills.add(detection.skill);
                 }
               } catch {
                 // ignore unreadable files
@@ -462,54 +356,40 @@ Deno.serve(async (req: Request) => {
             }
 
             // --- Language skills from extensions + languages API (real signal) ---
-            const extLanguages = new Set<string>();
-            for (const p of fileStructure) {
-              const lang = EXTENSION_LANGUAGE[extensionOf(p)];
-              if (lang) extLanguages.add(lang);
-            }
-            for (const langName of Object.keys(languagePercents)) {
-              const skill = LANGUAGE_NAME_SKILL[langName];
-              if (skill) extLanguages.add(skill);
-            }
+            const extLanguages = detectLanguageSkills(fileStructure, languagePercents);
             for (const lang of extLanguages) {
               recordSkill(lang, SKILL_CATEGORY[lang] || "language", "PENDING", 0.8, "language-signal", "", []);
               repoDetectedSkills.add(lang);
             }
 
             // --- Tree-based devops skills (real signal) ---
-            if (hasDockerfile) { recordSkill("Docker", "devops", "PENDING", 0.85, "Dockerfile", "", []); repoDetectedSkills.add("Docker"); }
-            if (hasTerraform) { recordSkill("Terraform", "devops", "PENDING", 0.85, "*.tf", "", []); repoDetectedSkills.add("Terraform"); }
-            if (hasK8s) { recordSkill("Kubernetes", "devops", "PENDING", 0.8, "k8s manifests", "", []); repoDetectedSkills.add("Kubernetes"); }
-            if (hasCI) { recordSkill("CI/CD", "devops", "PENDING", 0.8, ".github/workflows", "", []); repoDetectedSkills.add("CI/CD"); }
-            if (testFileCount > 0 && !repoDetectedSkills.has("Testing")) {
+            if (treeSignals.hasDockerfile) { recordSkill("Docker", "devops", "PENDING", 0.85, "Dockerfile", "", []); repoDetectedSkills.add("Docker"); }
+            if (treeSignals.hasTerraform) { recordSkill("Terraform", "devops", "PENDING", 0.85, "*.tf", "", []); repoDetectedSkills.add("Terraform"); }
+            if (treeSignals.hasK8s) { recordSkill("Kubernetes", "devops", "PENDING", 0.8, "k8s manifests", "", []); repoDetectedSkills.add("Kubernetes"); }
+            if (treeSignals.hasCI) { recordSkill("CI/CD", "devops", "PENDING", 0.8, ".github/workflows", "", []); repoDetectedSkills.add("CI/CD"); }
+            if (treeSignals.testFileCount > 0 && !repoDetectedSkills.has("Testing")) {
               recordSkill("Testing", "practice", "PENDING", 0.75, "test files", "", []);
               repoDetectedSkills.add("Testing");
             }
 
             // --- Inferred concept skills ---
-            for (const inf of CONCEPT_INFERENCE) {
-              if (inf.when.some((s) => repoDetectedSkills.has(s))) {
-                recordSkill(inf.concept, "concept", "PENDING", 0.7, "inferred from stack", "", []);
-                repoDetectedSkills.add(inf.concept);
-              }
+            for (const concept of inferConceptSkills(repoDetectedSkills)) {
+              recordSkill(concept, "concept", "PENDING", 0.7, "inferred from stack", "", []);
+              repoDetectedSkills.add(concept);
             }
 
             // --- Real scores ---
-            const testingScore = Math.min(100, Math.round((testFileCount / totalFileCount) * 300));
-            let securityScore = 70 - secretsFound * 20 + (envUsageFound ? 10 : 0) + (hasSecurityMd ? 20 : 0);
-            securityScore = Math.max(0, Math.min(100, securityScore));
-            let qualityScore100 = 0;
-            if (hasReadme) qualityScore100 += 25;
-            if (hasLinter) qualityScore100 += 20;
-            if (hasTypes) qualityScore100 += 15;
-            if (!repo.fork) qualityScore100 += 20;
-            if (hasCI) qualityScore100 += 20;
-            qualityScore100 = Math.min(100, qualityScore100);
-            const complexityScore = Math.min(
-              100,
-              Math.round(Math.log2(fileStructure.length * languageCount + 1) * 12),
-            );
-            const maturityScore = Math.round((testingScore + securityScore + qualityScore100 + complexityScore) / 4);
+            const testingScore = computeTestingScore(treeSignals.testFileCount, treeSignals.totalFileCount);
+            const securityScore = computeSecurityScore(secretsFound, envUsageFound, treeSignals.hasSecurityMd);
+            const qualityScore100 = computeQualityScore({
+              hasReadme: treeSignals.hasReadme,
+              hasLinter: treeSignals.hasLinter,
+              hasTypes: treeSignals.hasTypes,
+              isFork: repo.fork,
+              hasCI: treeSignals.hasCI,
+            });
+            const complexityScore = computeComplexityScore(fileStructure.length, languageCount);
+            const maturityScore = computeMaturityScore(testingScore, securityScore, qualityScore100, complexityScore);
 
             const repoData = {
               user_id: user.id,

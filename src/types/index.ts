@@ -35,6 +35,9 @@ export interface Subscription {
   monthly_value_target: number;
   current_period_end: string | null;
   notes: string;
+  provider?: string | null;
+  provider_customer_id?: string | null;
+  provider_subscription_id?: string | null;
   created_at: string;
   updated_at: string;
 }

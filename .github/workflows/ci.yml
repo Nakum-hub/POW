@@ -19,3 +19,17 @@ jobs:
       - run: npm run lint
       - run: npm run test
       - run: npm run build
+
+  # tsconfig.app.json only includes `src`, so the job above never typechecks
+  # anything under supabase/functions/ -- a Deno edge function with a typo
+  # could pass every gate in `validate` and still be broken. This job is the
+  # only thing in CI that actually checks the edge functions themselves.
+  validate-edge-functions:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+      - run: deno check supabase/functions/**/*.ts
+      - run: deno lint supabase/functions/
