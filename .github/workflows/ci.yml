@@ -39,6 +39,6 @@ jobs:
         run: |
           files=$(find supabase/functions -name '*.ts' ! -name '*.test.ts')
           echo "Checking: $files"
-          deno check $files
+          deno check --config supabase/functions/deno.json $files
       - name: Lint edge functions
-        run: deno lint supabase/functions/
+        run: deno lint --config supabase/functions/deno.json supabase/functions/
