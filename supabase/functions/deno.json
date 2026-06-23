@@ -1,4 +1,7 @@
 {
   "nodeModulesDir": "none",
-  "exclude": ["**/*.test.ts"]
+  "exclude": ["**/*.test.ts"],
+  "imports": {
+    "@supabase/supabase-js": "npm:@supabase/supabase-js@2"
+  }
 }
